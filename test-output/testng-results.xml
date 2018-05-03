@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="97" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="97" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
+      <class name="P2P_Testings.BcastTest">
+        <test-method status="PASS" signature="start()[pri:0, instance:P2P_Testings.BcastTest@58651fd0]" name="start" is-config="true" duration-ms="32" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- start -->
+        <test-method status="PASS" signature="Bcast()[pri:0, instance:P2P_Testings.BcastTest@58651fd0]" name="Bcast" duration-ms="12" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Bcast -->
+        <test-method status="PASS" signature="end()[pri:0, instance:P2P_Testings.BcastTest@58651fd0]" name="end" is-config="true" duration-ms="2" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- end -->
+      </class> <!-- P2P_Testings.BcastTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
