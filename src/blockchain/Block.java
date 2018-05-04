@@ -29,6 +29,7 @@ public class Block {
 	
 	public void mineBlock(int difficulty) {
 		String target = new String(new char[difficulty]).replace('\0', '0'); //Create a string with difficulty * "0" 
+		hash = calculateHash();
 		while(!hash.substring( 0, difficulty).equals(target)) {
 			nonce ++;
 			hash = calculateHash();
@@ -53,5 +54,14 @@ public class Block {
 		catch(Exception e) {
 			throw new RuntimeException(e);
 		}
-	}	
+	}
+	public String getHash() {
+		return hash;
+	}
+	
+	@Override
+	public String toString() {
+		return data.replace("\n", ",");
+	}
+	
 }
