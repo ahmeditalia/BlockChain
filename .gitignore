@@ -2,3 +2,5 @@
 *.class
 /bin/
 *.class
+bin/blockchain/Block.class
+*.class

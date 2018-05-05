@@ -122,7 +122,11 @@ public class Vote {
 				System.out.println(FileDate.getData());
 				++co;
 				if (co == N) {
-					blockChain.addBlock();
+					try {
+						peer.sendBlockAll(blockChain.addBlock().toString());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					co = 0;
 				}
 			}

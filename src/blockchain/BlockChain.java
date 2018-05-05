@@ -6,12 +6,13 @@ public class BlockChain {
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 	public static int difficulty = 5;
 
-	public void addBlock() {
+	public Block addBlock() {
 		String data = FileDate.getData();
 		String previousHash = blockchain.size() == 0 ? "0" : blockchain.get(blockchain.size() - 1).getHash();
 		Block block = new Block(data, previousHash, difficulty);
 		blockchain.add(block);
 		FileDate.truncate();
+		return block;
 	}
 
 	public static ArrayList<Block> getBlockchain() {

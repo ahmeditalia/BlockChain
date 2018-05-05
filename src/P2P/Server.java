@@ -35,8 +35,12 @@ public class Server extends Thread {
 				}
 				else 
 				{
-					String [] bChain= data.split(data.substring(1));
-					BlockChain.blockchain.add(new Block(bChain[0],bChain[1] ,IntebChain[2]));
+					Block block=new Block(data.substring(1)); 
+					if(!BlockChain.blockchain.contains(block))
+					{
+						BlockChain.blockchain.add(new Block(data.substring(1)));
+						System.out.println(BlockChain.isChainValid());
+					}
 				}
 			}
 
