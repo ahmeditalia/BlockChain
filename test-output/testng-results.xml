@@ -2,24 +2,20 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="97" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
+  <suite name="Default suite" duration-ms="129" started-at="2018-05-04T22:37:49Z" finished-at="2018-05-04T22:37:49Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="97" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
-      <class name="P2P_Testings.BcastTest">
-        <test-method status="PASS" signature="start()[pri:0, instance:P2P_Testings.BcastTest@58651fd0]" name="start" is-config="true" duration-ms="32" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
+    <test name="Default test" duration-ms="129" started-at="2018-05-04T22:37:49Z" finished-at="2018-05-04T22:37:49Z">
+      <class name="P2P_Testings.MulticastTest">
+        <test-method status="PASS" signature="start()[pri:0, instance:P2P_Testings.MulticastTest@62ee68d8]" name="start" is-config="true" duration-ms="25" started-at="2018-05-04T22:37:49Z" finished-at="2018-05-04T22:37:49Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- start -->
-        <test-method status="PASS" signature="Bcast()[pri:0, instance:P2P_Testings.BcastTest@58651fd0]" name="Bcast" duration-ms="12" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
+        <test-method status="PASS" signature="multicast()[pri:0, instance:P2P_Testings.MulticastTest@62ee68d8]" name="multicast" duration-ms="37" started-at="2018-05-04T22:37:49Z" finished-at="2018-05-04T22:37:49Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Bcast -->
-        <test-method status="PASS" signature="end()[pri:0, instance:P2P_Testings.BcastTest@58651fd0]" name="end" is-config="true" duration-ms="2" started-at="2018-05-03T04:35:40Z" finished-at="2018-05-03T04:35:40Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- end -->
-      </class> <!-- P2P_Testings.BcastTest -->
+        </test-method> <!-- multicast -->
+      </class> <!-- P2P_Testings.MulticastTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

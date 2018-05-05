@@ -3,12 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="P2P_Testings.MulticastTest">
+      <class name="P2P_Testings.SendReceiveTest">
         <methods>
-          <include name="start"/>
-          <include name="multicast"/>
+          <include name="givenGreetingClient_whenServerRespondsWhenStarted_thenCorrect"/>
         </methods>
-      </class> <!-- P2P_Testings.MulticastTest -->
+      </class> <!-- P2P_Testings.SendReceiveTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

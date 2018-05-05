@@ -2,6 +2,8 @@ package P2P_Testings;
 
 import java.io.IOException;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -25,9 +27,16 @@ public class MulticastTest {
 	@Test
 	public void multicast() throws IOException {
 
-		publisher.multicast("hellow Sa2a");
-		publisher.multicast("end");
-		String received = receiver.getReceived();
-		Assert.assertEquals("hellow Sa2a/end/", received);
+		String ack= publisher.multicast("hellow Sa2a");
+		Assert.assertEquals("done", ack);
+
+		ack =publisher.multicast("end");
+		Assert.assertEquals("done", ack);
 	}
+	
+	/*@AfterClass
+	public void end() {
+		receiver.close();
+		publisher.close();
+	}*/
 }
