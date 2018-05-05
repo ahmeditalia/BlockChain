@@ -8,13 +8,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
+
+import blockchain.Block;
+import blockchain.BlockChain;
+import blockchain.FileDate;
+
 public class Server extends Thread {
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
 	private PrintWriter out;
 	private BufferedReader in;
 	private String data;
-
+	
 	public void run() {
 		try {
 			serverSocket = new ServerSocket(new NetInfo().receivePort);
@@ -23,6 +29,15 @@ public class Server extends Thread {
 				//out = new PrintWriter(clientSocket.getOutputStream(), true);
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				data = in.readLine();
+				if(data.charAt(0)=='l')
+				{
+					FileDate.writeVote(data.substring(1));
+				}
+				else 
+				{
+					String [] bChain= data.split(data.substring(1));
+					BlockChain.blockchain.add(new Block(bChain[0],bChain[1] ,IntebChain[2]));
+				}
 			}
 
 		} catch (

@@ -12,7 +12,6 @@ public class MulticastReceiver extends Thread {
 	private NetInfo GROUP = new NetInfo();
 	private byte[] recBuf;
 	private byte[] sendBuf;
-
 	private String data;
 	private ArrayList<PeerSocket> networkPeers;
 

@@ -10,6 +10,14 @@ public class Block {
 	private long timeStamp;
 	private int nonce;
 
+	public Block(String hash, String previousHash, String data, long timeStamp, int nonce) {
+		super();
+		this.hash = hash;
+		this.previousHash = previousHash;
+		this.data = data;
+		this.timeStamp = timeStamp;
+		this.nonce = nonce;
+	}
 	public Block(String data,String previousHash,int difficulty) {
 		this.data = data;
 		this.previousHash = previousHash;
