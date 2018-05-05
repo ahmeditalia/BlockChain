@@ -15,6 +15,8 @@ public class MulticastReceiver extends Thread {
 	private String data;
 	private ArrayList<PeerSocket> networkPeers;
 
+
+
 	// private String recMessage;
 	public MulticastReceiver() {
 		try {
@@ -33,21 +35,22 @@ public class MulticastReceiver extends Thread {
 			try {
 				packet = new DatagramPacket(recBuf, recBuf.length);
 				socket.receive(packet);
-				String rec = new String(packet.getData(), 0, packet.getLength());
 				sendBuf = data.getBytes();
-				packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(), GROUP.sendPort);
+				System.out.println(packet.getPort());
+				packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(),GROUP.sendPort );
 				socket.send(packet);
 				String peer = "";
 				for (int i = 0; i < networkPeers.size(); i++) {
 					peer += networkPeers.get(i).getIP() +"/"+networkPeers.get(i).getPort()+"/";
 				}
 				sendBuf = peer.getBytes();
-				packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(), GROUP.sendPort);
+				packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(),GROUP.sendPort);
+				socket.send(packet);
+				networkPeers.add(new PeerSocket(packet.getAddress().toString(), packet.getPort()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 	}
 
@@ -76,8 +79,13 @@ public class MulticastReceiver extends Thread {
 		this.data = data;
 	}
 
-	
+	public ArrayList<PeerSocket> getNetworkPeers() {
+		return networkPeers;
+	}
 
+	public void setNetworkPeers(ArrayList<PeerSocket> networkPeers) {
+		this.networkPeers = networkPeers;
+	}
 	public void addNetworkPeer(PeerSocket p) {
 		this.networkPeers.add(p);
 	}

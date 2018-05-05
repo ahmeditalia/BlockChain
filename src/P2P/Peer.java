@@ -39,13 +39,17 @@ public class Peer {
 		networkPeers =new ArrayList<>();
 		networkPeers.add(peerSocket);
 		multicastPublisher= new MulticastPublisher();
-		multicastReceiver =new MulticastReceiver();
+		//multicastReceiver =new MulticastReceiver();
 		client= new Client();
 		server= new Server();
 	}
 
+
+
 	public void start()
 	{
+		multicastReceiver =new MulticastReceiver();
+
 		multicastReceiver.start();
 		multicastPublisher.multicast("hi");
 		networkPeers= multicastPublisher.getNetworkPeers();
@@ -64,6 +68,7 @@ public class Peer {
 	
 	public void sendLineAll(String data) throws IOException
 	{
+		networkPeers= multicastPublisher.getNetworkPeers();
 		for(int i=1;i<networkPeers.size();i++)
 		{
 			client.connect(networkPeers.get(i).getIP());
@@ -73,6 +78,7 @@ public class Peer {
 	}
 	public void sendBlockAll(String block) throws IOException
 	{
+		networkPeers= multicastPublisher.getNetworkPeers();
 		for(int i=1;i<networkPeers.size();i++)
 		{
 			client.connect(networkPeers.get(i).getIP());

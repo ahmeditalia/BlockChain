@@ -49,7 +49,6 @@ public class MulticastPublisher {
 			String[] peer = new String(packet.getData(), 0, packet.getLength()).split("/");
 			
 			for (int i = 0; i < peer.length; i+=2) {
-				
 				networkPeers.add(new PeerSocket(peer[i],Integer.parseInt(peer[i+1])));
 			}
 			
