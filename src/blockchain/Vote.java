@@ -11,9 +11,13 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import P2P.Peer;
 
 public class Vote {
 
@@ -22,6 +26,7 @@ public class Vote {
 	private int co = 0;
 	private BlockChain blockChain;
 	private int N = 3;
+	private Peer peer;
 
 	/**
 	 * Launch the application.
@@ -30,8 +35,14 @@ public class Vote {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vote window = new Vote();
+					Vote window = new Vote(8888);
 					window.frame.setVisible(true);
+
+					Vote window1 = new Vote(8889);
+					window1.frame.setVisible(true);
+
+					Vote window2 = new Vote(8890);
+					window2.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,9 +53,15 @@ public class Vote {
 	/**
 	 * Create the application.
 	 */
-	public Vote() {
+	public Vote(int i) {
 		blockChain = new BlockChain();
 		initialize();
+		try {
+			peer=new Peer(i);
+			peer.start();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -92,6 +109,11 @@ public class Vote {
 					return;
 				}
 				String vote = name.getText() + " voted to " + buttonGroup.getSelection().getActionCommand() + "\n";
+				try {
+					peer.sendLineAll(vote);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				FileDate.writeVote(vote);
 				name.setText("");
 				radioButton_2.setSelected(true);
