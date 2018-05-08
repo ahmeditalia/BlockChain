@@ -35,19 +35,28 @@ public class Vote {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vote window = new Vote(8888);
-					window.frame.setVisible(true);
-
-					Vote window1 = new Vote(8889);
+					Vote window1 = new Vote(8881);
+					window1.getPeer().setbCastSendPort(4444);//bCast to 4444
+					window1.getPeer().setbCastRecPort(4444); //lesten to 4444
+					window1.getPeer().start();
 					window1.frame.setVisible(true);
 
-					Vote window2 = new Vote(8890);
+					Vote window2 = new Vote(8882);
+
+					window2.getPeer().setbCastSendPort(4444);//bCast to 4444
+					window2.getPeer().setbCastRecPort(3333); //lesten to 3333
+					window2.getPeer().start();
 					window2.frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+
+	protected Peer getPeer() {
+		return peer;
 	}
 
 	/**
@@ -58,11 +67,12 @@ public class Vote {
 		initialize();
 		try {
 			peer=new Peer(i);
-			peer.start();
+			//peer.start();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
 	}
+
 
 	/**
 	 * Initialize the contents of the frame.

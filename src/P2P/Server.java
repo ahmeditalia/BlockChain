@@ -17,13 +17,21 @@ import blockchain.FileDate;
 public class Server extends Thread {
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
-	private PrintWriter out;
+	//private PrintWriter out;
 	private BufferedReader in;
 	private String data;
-	
+	public Server(int port)
+	{
+		try {
+			serverSocket = new ServerSocket(port);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	public void run() {
 		try {
-			serverSocket = new ServerSocket(new NetInfo().receivePort);
 			while (!serverSocket.isClosed()) {
 				clientSocket = serverSocket.accept();
 				//out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -55,7 +63,7 @@ public class Server extends Thread {
 	public void close() {
 		try {
 			in.close();
-			out.close();
+			//out.close();
 			serverSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

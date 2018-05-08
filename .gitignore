@@ -4,3 +4,15 @@
 *.class
 bin/blockchain/Block.class
 *.class
+test-output/old/Default suite/testng.xml.html
+test-output/old/Default suite/methods.html
+test-output/old/Default suite/methods-alphabetical.html
+test-output/old/Default suite/classes.html
+test-output/testng-failed.xml
+test-output/index.html
+test-output/Default suite/Default test.html
+test-output/Default suite/Default test.xml
+src/blockchain/Vote.java
+test-output/Default suite/Default test.html
+test-output/Default suite/Default test.xml
+*.xml

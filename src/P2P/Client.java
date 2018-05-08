@@ -9,14 +9,14 @@ import java.net.Socket;
 public class Client {
 	private Socket socket;
 	private PrintWriter out;
-	private BufferedReader in;
+	//private BufferedReader in;
 	
 	public Client() {
 	}
 
-	public void connect(String serverIP) {
+	public void connect(String serverIP,int serverPort) {
 		try {
-			socket = new Socket(serverIP, new NetInfo().receivePort);
+			socket = new Socket(serverIP, serverPort);
 			out = new PrintWriter(socket.getOutputStream(),true);
 			//in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (IOException e) {
@@ -33,11 +33,17 @@ public class Client {
 		//return response;
 	}
 	
-	public void close() throws IOException
+	public void close() 
 	{
-		in.close();
-		out.close();
-		socket.close();
+		try {
+			//in.close();
+			socket.close();
+			out.close();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	

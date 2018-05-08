@@ -10,31 +10,31 @@ import P2P.MulticastReceiver;
 import org.testng.*;
 
 public class MulticastTest {
-
-	private MulticastPublisher publisher;
-	private MulticastReceiver receiver;
-
-	@BeforeMethod
-	private void start() {
-		
-		receiver = new MulticastReceiver();
-		receiver.start();
-		publisher = new MulticastPublisher();
-	}
-
-	@Test
-	public void multicast() throws IOException {
-
-		String ack= publisher.multicast("hellow Sa2a");
-		Assert.assertEquals("done", ack);
-
-		ack =publisher.multicast("end");
-		Assert.assertEquals("done", ack);
-	}
-	
-	/*@AfterClass
-	public void end() {
-		receiver.close();
-		publisher.close();
-	}*/
+//
+//	private MulticastPublisher publisher;
+//	private MulticastReceiver receiver;
+//
+//	@BeforeMethod
+//	private void start() {
+//		
+//		receiver = new MulticastReceiver();
+//		receiver.start();
+//		publisher = new MulticastPublisher();
+//	}
+//
+//	@Test
+//	public void multicast() throws IOException {
+//
+//		String ack= publisher.multicast("hellow Sa2a");
+//		Assert.assertEquals("done", ack);
+//
+//		ack =publisher.multicast("end");
+//		Assert.assertEquals("done", ack);
+//	}
+//	
+//	/*@AfterClass
+//	public void end() {
+//		receiver.close();
+//		publisher.close();
+//	}*/
 }

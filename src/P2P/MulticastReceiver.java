@@ -5,48 +5,63 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.util.ArrayList;
+import java.util.jar.Pack200.Packer;
 
 public class MulticastReceiver extends Thread {
 	private MulticastSocket socket;
 	private DatagramPacket packet;
-	private NetInfo GROUP = new NetInfo();
+	// private NetInfo GROUP = new NetInfo();
+	private InetAddress groupIP;
+	private int groupPort;
 	private byte[] recBuf;
 	private byte[] sendBuf;
+
 	private String data;
 	private ArrayList<PeerSocket> networkPeers;
 
-
-
-	// private String recMessage;
-	public MulticastReceiver() {
+	public MulticastReceiver(String groupIP, int groupPort) {
 		try {
-			socket = new MulticastSocket(GROUP.receivePort);
-			socket.joinGroup(GROUP.IP());
-			recBuf = new byte[1000];
-			networkPeers= new ArrayList<>();
+			this.groupIP = InetAddress.getByName(groupIP);
+			this.groupPort = groupPort;
+			socket = new MulticastSocket(groupPort);
+			socket.joinGroup(this.groupIP);
+			recBuf = new byte[10000];
+			this.networkPeers = new ArrayList<>();
+			data = "";
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	@Override
 	public void run() {
 		while (!socket.isClosed()) {
 			try {
+				// receive requist
 				packet = new DatagramPacket(recBuf, recBuf.length);
 				socket.receive(packet);
-				sendBuf = data.getBytes();
-				System.out.println(packet.getPort());
-				packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(),GROUP.sendPort );
-				socket.send(packet);
-				String peer = "";
-				for (int i = 0; i < networkPeers.size(); i++) {
-					peer += networkPeers.get(i).getIP() +"/"+networkPeers.get(i).getPort()+"/";
+				String recData = new String(packet.getData(), 0, packet.getLength());
+
+				if (recData != "hi") {
+					// send data
+					sendBuf = data.getBytes();
+					System.out.println(packet.getPort());
+					packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(), packet.getPort());
+					socket.send(packet);
+
+					// send peer list
+					String peerSoketList = "";
+					for (int i = 0; i < networkPeers.size(); i++) {
+						peerSoketList += networkPeers.get(i).getIP() + "/" + networkPeers.get(i).getPort() + "/";
+					}
+					sendBuf = peerSoketList.getBytes();
+					packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(), packet.getPort());
+					socket.send(packet);
+
+					// add that peer to me
+					networkPeers.add(new PeerSocket(packet.getAddress().toString(), packet.getPort()));
 				}
-				sendBuf = peer.getBytes();
-				packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(),GROUP.sendPort);
-				socket.send(packet);
-				networkPeers.add(new PeerSocket(packet.getAddress().toString(), packet.getPort()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -56,12 +71,28 @@ public class MulticastReceiver extends Thread {
 
 	public void close() {
 		try {
-			socket.leaveGroup(GROUP.IP());
+			socket.leaveGroup(groupIP);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		socket.close();
+	}
+
+	public InetAddress getGroupIP() {
+		return groupIP;
+	}
+
+	public void setGroupIP(InetAddress groupIP) {
+		this.groupIP = groupIP;
+	}
+
+	public int getGroupPort() {
+		return groupPort;
+	}
+
+	public void setGroupPort(int groupPort) {
+		this.groupPort = groupPort;
 	}
 
 	/**
@@ -85,9 +116,6 @@ public class MulticastReceiver extends Thread {
 
 	public void setNetworkPeers(ArrayList<PeerSocket> networkPeers) {
 		this.networkPeers = networkPeers;
-	}
-	public void addNetworkPeer(PeerSocket p) {
-		this.networkPeers.add(p);
 	}
 
 }
