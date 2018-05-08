@@ -17,12 +17,14 @@ import blockchain.FileDate;
 public class Server extends Thread {
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
-	//private PrintWriter out;
+	// private PrintWriter out;
 	private BufferedReader in;
 	private String data;
-	public Server(int port)
-	{
+	private boolean started;
+
+	public Server(int port) {
 		try {
+			started= false;
 			serverSocket = new ServerSocket(port);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -34,22 +36,19 @@ public class Server extends Thread {
 		try {
 			while (!serverSocket.isClosed()) {
 				clientSocket = serverSocket.accept();
-				//out = new PrintWriter(clientSocket.getOutputStream(), true);
+				// out = new PrintWriter(clientSocket.getOutputStream(), true);
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				data = in.readLine();
-				if(data.charAt(0)=='l')
-				{
+				if (data.charAt(0) == 'l') {
 					FileDate.writeVote(data.substring(1));
-				}
-				else 
-				{
-					Block block=new Block(data.substring(1)); 
-					if(!BlockChain.blockchain.contains(block))
-					{
+				} else {
+					Block block = new Block(data.substring(1));
+					if (!BlockChain.blockchain.contains(block)) {
 						BlockChain.blockchain.add(new Block(data.substring(1)));
 						System.out.println(BlockChain.isChainValid());
 					}
 				}
+				started= true;
 			}
 
 		} catch (
@@ -61,13 +60,16 @@ public class Server extends Thread {
 	}
 
 	public void close() {
-		try {
-			in.close();
-			//out.close();
-			serverSocket.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (started) {
+			started= false;
+			try {
+				in.close();
+				// out.close();
+				serverSocket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

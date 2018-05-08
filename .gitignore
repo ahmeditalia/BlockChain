@@ -16,3 +16,4 @@ src/blockchain/Vote.java
 test-output/Default suite/Default test.html
 test-output/Default suite/Default test.xml
 *.xml
+*.html

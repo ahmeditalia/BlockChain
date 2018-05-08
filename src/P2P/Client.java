@@ -9,16 +9,19 @@ import java.net.Socket;
 public class Client {
 	private Socket socket;
 	private PrintWriter out;
-	//private BufferedReader in;
-	
+	private boolean connected;
+	// private BufferedReader in;
+
 	public Client() {
+		connected= false;
 	}
 
-	public void connect(String serverIP,int serverPort) {
+	public void connect(String serverIP, int serverPort) {
 		try {
-			socket = new Socket(serverIP, serverPort);
-			out = new PrintWriter(socket.getOutputStream(),true);
-			//in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			socket= new Socket(serverIP, serverPort);
+			out = new PrintWriter(socket.getOutputStream(), true);
+			connected= true;
+			// in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,25 +29,25 @@ public class Client {
 	}
 
 	public void send(String message) throws IOException {
-		//String response = null;
+		// String response = null;
 		out.println(message);
-		//response = in.readLine();
+		// response = in.readLine();
 
-		//return response;
+		// return response;
 	}
-	
-	public void close() 
-	{
-		try {
-			//in.close();
-			socket.close();
-			out.close();
+
+	public void close() {
+		if (connected) {
+			try {
+				// in.close();
+				socket.close();
+				out.close();
+				connected= false;
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
 	}
 
-	
 }

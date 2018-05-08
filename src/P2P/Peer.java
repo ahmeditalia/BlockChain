@@ -98,15 +98,18 @@ public class Peer {
 		bCastReceiver.start();
 		client = new Client();
 		server = new Server(peerSocket.getPort());
+		server.start();
 
 	}
 
 	public String receiveLine() {
-		return server.getData();
+		data= server.getData();
+		return data;
 	}
 
 	public String receiveBlock() {
-		return server.getData();
+		data= server.getData();
+		return data;
 	}
 
 	public void sendLineAll(String data) throws IOException {
@@ -123,7 +126,6 @@ public class Peer {
 			client.send(block);
 		}
 		client.close();
-
 	}
 
 	/**
@@ -138,7 +140,7 @@ public class Peer {
 	}
 
 	public String getData() {
-		return bCastReceiver.getData();
+		return data;
 	}
 
 	/**

@@ -17,6 +17,7 @@ public class BcastReceiver extends Thread {
 
 	private String data;
 	private ArrayList<PeerSocket> networkPeers;
+
 	public String getData() {
 		return data;
 	}
@@ -36,12 +37,13 @@ public class BcastReceiver extends Thread {
 	public void setNetworkPeers(ArrayList<PeerSocket> networkPeers) {
 		this.networkPeers = networkPeers;
 	}
-	public BcastReceiver(int port)  {
+
+	public BcastReceiver(int port) {
 		try {
 			socket = new DatagramSocket(port);
-			networkPeers= new ArrayList<>();
-			data="no Data";
-			} catch (SocketException e) {
+			networkPeers = new ArrayList<>();
+			data = "no Data";
+		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -53,21 +55,22 @@ public class BcastReceiver extends Thread {
 		while (!socket.isClosed()) {
 			try {
 				// receive requist
-				recBuf= new byte[1000];
+				recBuf = new byte[1000];
 				packet = new DatagramPacket(recBuf, recBuf.length);
+
+				//socket.setSoTimeout(5);
 				socket.receive(packet);
 				String recData = new String(packet.getData(), 0, packet.getLength());
-				System.out.println("in receiver\nsoket port = "+socket.getLocalPort());
-				System.out.println("data = "+data);
-				System.out.println("recData = "+recData);
+				System.out.println("in receiver\nsoket port = " + socket.getLocalPort());
+				System.out.println("data = " + data);
+				System.out.println("recData = " + recData);
 
 				if (recData.equals("hi")) {
 					// send data
 					sendBuf = data.getBytes();
 					System.out.println(packet.getPort());
 					System.out.println(packet.getAddress());
-					packet = new DatagramPacket(sendBuf, sendBuf.length, 
-							packet.getAddress(), packet.getPort());
+					packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(), packet.getPort());
 					socket.send(packet);
 
 					// send peer list
@@ -76,22 +79,24 @@ public class BcastReceiver extends Thread {
 						peerSoketList += networkPeers.get(i).getIP() + "/" + networkPeers.get(i).getPort() + "/";
 					}
 					sendBuf = peerSoketList.getBytes();
-					packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress()
-							, packet.getPort());
+					packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(), packet.getPort());
 					socket.send(packet);
 
 					// add that peer to me
 					networkPeers.add(new PeerSocket(packet.getAddress().toString(), packet.getPort()));
 				}
+			} catch (SocketException e) {
+				continue;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
+
 	public void close() {
 		socket.close();
-		
+
 	}
 }

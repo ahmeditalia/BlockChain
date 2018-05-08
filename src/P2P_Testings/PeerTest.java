@@ -11,16 +11,18 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import P2P.Client;
 import P2P.NetInfo;
 import P2P.Peer;
+import P2P.Server;
 
 public class PeerTest {
 	private Peer peer1, peer2;
 
 	@BeforeMethod
 	public void setup() throws UnknownHostException {
-		peer1 = new Peer("127.0.0.2", 9991);
-		peer2 = new Peer("127.0.0.3", 9992);
+		peer1 = new Peer(9991);
+		peer2 = new Peer(9992);
 	}
 
 	@Test
@@ -38,7 +40,19 @@ public class PeerTest {
 		Assert.assertEquals(2, peer1.getNetworkPeers().size());
 		Assert.assertEquals(2, peer2.getNetworkPeers().size());
 		Assert.assertEquals("peer1 data", peer2.getData());
-
+		peer2.sendLineAll("sa2l");
+		Assert.assertEquals("sa2l", peer1.receiveLine());
+		
+		peer1.close();
+		peer2.close();
+		Client client= new Client();
+		Server server= new Server(1101);
+		server.start();
+		client.connect("localhost", 1101);
+		client.send("Sa2a");
+		Assert.assertEquals("Sa2a", server.getData());
+		client.close();
+		server.close();
 //		DatagramSocket socketRec = new DatagramSocket(1111, InetAddress.getByName("localhost")); // DatagramSocket
 //		//DatagramSocket socketRec2 = new DatagramSocket(1112, InetAddress.getByName("localhost"));
 //		DatagramSocket socketSend = new DatagramSocket(2222, InetAddress.getByName("localhost"));

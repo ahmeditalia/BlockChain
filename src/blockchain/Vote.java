@@ -40,12 +40,13 @@ public class Vote {
 					window1.getPeer().setbCastRecPort(4444); //lesten to 4444
 					window1.getPeer().start();
 					window1.frame.setVisible(true);
-
+					window1.frame.setTitle("peer_1");
 					Vote window2 = new Vote(8882);
 
 					window2.getPeer().setbCastSendPort(4444);//bCast to 4444
 					window2.getPeer().setbCastRecPort(3333); //lesten to 3333
 					window2.getPeer().start();
+					window2.frame.setTitle("peer_2");
 					window2.frame.setVisible(true);
 
 				} catch (Exception e) {
