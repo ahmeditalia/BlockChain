@@ -122,7 +122,7 @@ public class Vote {
 					JOptionPane.showMessageDialog(null, "Enter Your Name!!!");
 					return;
 				}
-				String vote = name.getText() + " voted to " + buttonGroup.getSelection().getActionCommand() + "\n";
+				String vote = name.getText() + " voted to " + buttonGroup.getSelection().getActionCommand();
 				try {
 					peer.sendLineAll(vote);
 				} catch (IOException e) {
@@ -134,7 +134,7 @@ public class Vote {
 				radioButton_2.setSelected(true);
 
 				System.out.println("---------------------------------------------------------------");
-				System.out.println(FileDate.getData());
+				System.out.println(vote);
 				++co;
 				if (Data.size() == N) {
 					try {

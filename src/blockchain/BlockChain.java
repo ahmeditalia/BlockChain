@@ -9,10 +9,12 @@ public class BlockChain {
 	public static Block addBlock() {
 		String data = "";
 		for(String s:Vote.Data) {
-			data+=s+"\n";
+			data+=s;
 		}
 		String previousHash = blockchain.size() == 0 ? "0" : blockchain.get(blockchain.size() - 1).getHash();
 		Block block = new Block(data, previousHash, difficulty);
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("mined block : \n"+block.toString());
 		if(!blockchain.contains(block))
 		{
 			blockchain.add(block);
