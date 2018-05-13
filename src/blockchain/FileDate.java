@@ -34,7 +34,6 @@ public class FileDate {
 			String line = br.readLine();
 			while (line != null) {
 				sb.append(line);
-				sb.append("\n");
 				line = br.readLine();
 			}
 			br.close();
