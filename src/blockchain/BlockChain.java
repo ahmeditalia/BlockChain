@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BlockChain {
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
-	public static int difficulty = 3;
+	public static int difficulty = 1;
 
 	public Block addBlock() {
 		String data = FileDate.getData();
