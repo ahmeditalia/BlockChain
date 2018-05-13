@@ -83,7 +83,7 @@ public class BcastReceiver extends Thread {
 					socket.send(packet);
 
 					// add that peer to me
-					networkPeers.add(new PeerSocket(packet.getAddress().toString(), packet.getPort()));
+					networkPeers.add(new PeerSocket(packet.getAddress().toString().substring(1), packet.getPort()));
 				}
 			} catch (SocketException e) {
 				continue;
