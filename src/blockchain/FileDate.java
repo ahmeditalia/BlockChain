@@ -1,25 +1,27 @@
 package blockchain;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import javax.xml.crypto.Data;
 
 public class FileDate {
 	private static String file = "data.txt";
 
 	public static void writeVote(String vote) {
 		try {
-			vote+="\n";
-		    Files.write(Paths.get(file), vote.getBytes(), StandardOpenOption.APPEND);
+			BufferedWriter out=new BufferedWriter(new FileWriter("data.txt",true));
+			out.write(vote);
+			out.newLine();
+			out.close();
 		    
 		}catch (IOException e) {
 		}
