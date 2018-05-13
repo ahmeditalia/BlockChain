@@ -34,7 +34,7 @@ public class Peer {
 	}
 
 	public Peer() throws UnknownHostException {
-		peerSocket = new PeerSocket("localhost", NetInfo.sendPort);
+		peerSocket = new PeerSocket(InetAddress.getLocalHost().getHostAddress(), NetInfo.sendPort);
 		networkPeers = new ArrayList<>();
 		networkPeers.add(peerSocket);
 		// multicastPublisher= new MulticastPublisher();
@@ -46,7 +46,7 @@ public class Peer {
 	}
 
 	public Peer(int port) throws UnknownHostException {
-		peerSocket = new PeerSocket("localhost", port);
+		peerSocket = new PeerSocket(InetAddress.getLocalHost().getHostAddress(), port);
 		networkPeers = new ArrayList<>();
 		networkPeers.add(peerSocket);
 		// multicastPublisher= new MulticastPublisher();
