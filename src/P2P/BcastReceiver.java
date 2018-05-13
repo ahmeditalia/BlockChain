@@ -56,11 +56,12 @@ public class BcastReceiver extends Thread {
 			try {
 				// receive requist
 				recBuf = new byte[1000];
-				packet = new DatagramPacket(recBuf, recBuf.length);
+				DatagramPacket recPacket;
+				recPacket = new DatagramPacket(recBuf, recBuf.length);
 
 				//socket.setSoTimeout(5);
-				socket.receive(packet);
-				String recData = new String(packet.getData(), 0, packet.getLength());
+				socket.receive(recPacket);
+				String recData = new String(recPacket.getData(), 0, recPacket.getLength());
 				System.out.println("in receiver\nsoket port = " + socket.getLocalPort());
 				System.out.println("data = " + data);
 				System.out.println("recData = " + recData);
@@ -68,9 +69,9 @@ public class BcastReceiver extends Thread {
 				if (recData.equals("hi")) {
 					// send data
 					sendBuf = data.getBytes();
-					System.out.println(packet.getPort());
-					System.out.println(packet.getAddress());
-					packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(), packet.getPort());
+					System.out.println(recPacket.getPort());
+					System.out.println(recPacket.getAddress());
+					packet = new DatagramPacket(sendBuf, sendBuf.length, recPacket.getAddress(), recPacket.getPort());
 					socket.send(packet);
 
 					// send peer list
@@ -79,11 +80,11 @@ public class BcastReceiver extends Thread {
 						peerSoketList += networkPeers.get(i).getIP() + "/" + networkPeers.get(i).getPort() + "/";
 					}
 					sendBuf = peerSoketList.getBytes();
-					packet = new DatagramPacket(sendBuf, sendBuf.length, packet.getAddress(), packet.getPort());
+					packet = new DatagramPacket(sendBuf, sendBuf.length, recPacket.getAddress(), recPacket.getPort());
 					socket.send(packet);
 
 					// add that peer to me
-					networkPeers.add(new PeerSocket(packet.getAddress().toString().substring(1), packet.getPort()));
+					networkPeers.add(new PeerSocket(recPacket.getAddress().toString().substring(1), recPacket.getPort()));
 				}
 			} catch (SocketException e) {
 				continue;
