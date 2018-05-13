@@ -87,7 +87,7 @@ public class Peer {
 		// multicastReceiver.setNetworkPeers(networkPeers);
 		// multicastReceiver.start();
 
-		BcastSender bCastSender = new BcastSender(bCasstPort++, bCastSendPort);
+		BcastSender bCastSender = new BcastSender(NetInfo.sendPort, bCastSendPort);
 		bCastSender.setNetworkPeers(networkPeers);
 		bCastSender.bCast("hi");
 		data = bCastSender.getData();
