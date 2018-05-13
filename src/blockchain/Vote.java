@@ -2,6 +2,7 @@ package blockchain;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.activation.FileDataSource;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -133,7 +135,7 @@ public class Vote {
 				System.out.println("---------------------------------------------------------------");
 				System.out.println(FileDate.getData());
 				++co;
-				if (co == N) {
+				if (FileDate.NLines() == N) {
 					try {
 						peer.sendBlockAll(blockChain.addBlock().toString());
 					} catch (IOException e) {

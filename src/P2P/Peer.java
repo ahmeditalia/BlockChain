@@ -89,7 +89,7 @@ public class Peer {
 
 		BcastSender bCastSender = new BcastSender(NetInfo.sendPort, bCastSendPort);
 		bCastSender.setNetworkPeers(networkPeers);
-		bCastSender.bCast("hi");
+		bCastSender.bCast("hi"+"/"+peerSocket.getPort());
 		data = bCastSender.getData();
 		bCastSender.close();
 		bCastReceiver = new BcastReceiver(bCastRecPort);
