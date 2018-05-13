@@ -53,10 +53,18 @@ public class FileDate {
 		}
 	}
 	public static int NLines() {
+		int count=0;
 		try {
-		    return Files.readAllLines(Paths.get("data.txt")).size()-1;
-		}catch (IOException e) {
+			
+			BufferedReader br = new BufferedReader(new FileReader(file));	
+			while(br.ready())
+			{
+				br.readLine();
+				count++;
+			}
+			br.close();
+			}catch (IOException e) {
 		}
-		return 0;
+		return count-2;
 	}
 }
