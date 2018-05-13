@@ -36,7 +36,7 @@ public class Vote {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vote window1 = new Vote(8881);
+					Vote window1 = new Vote(8888);
 					window1.getPeer().setbCastSendPort(NetInfo.sendPort);//bCast to 4444
 					window1.getPeer().setbCastRecPort(NetInfo.receivePort); //lesten to 4444
 					window1.getPeer().start();
@@ -69,7 +69,7 @@ public class Vote {
 		initialize();
 		try {
 			peer=new Peer(i);
-			//peer.start();
+			peer.start();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
