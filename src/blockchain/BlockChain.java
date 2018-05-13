@@ -6,11 +6,14 @@ public class BlockChain {
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 	public static int difficulty = 1;
 
-	public Block addBlock() {
+	public static Block addBlock() {
 		String data = FileDate.getData();
 		String previousHash = blockchain.size() == 0 ? "0" : blockchain.get(blockchain.size() - 1).getHash();
 		Block block = new Block(data, previousHash, difficulty);
-		blockchain.add(block);
+		if(!blockchain.contains(block))
+		{
+			blockchain.add(block);
+		}
 		FileDate.truncate();
 		return block;
 	}

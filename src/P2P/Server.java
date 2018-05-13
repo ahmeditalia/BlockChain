@@ -41,6 +41,10 @@ public class Server extends Thread {
 				data = in.readLine();
 				if (data.charAt(0) == 'l') {
 					FileDate.writeVote(data.substring(1));
+					if(FileDate.NLines()==3)
+					{
+						BlockChain.addBlock();
+					}
 				} else {
 					Block block = new Block(data.substring(1));
 					if (!BlockChain.blockchain.contains(block)) {
