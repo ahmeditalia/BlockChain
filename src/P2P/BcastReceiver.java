@@ -8,6 +8,8 @@ import java.net.SocketException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
+
 public class BcastReceiver extends Thread {
 
 	private DatagramSocket socket;
@@ -62,11 +64,12 @@ public class BcastReceiver extends Thread {
 				//socket.setSoTimeout(5);
 				socket.receive(recPacket);
 				String recData = new String(recPacket.getData(), 0, recPacket.getLength());
+				String [] rec=recData.split("/");
 				System.out.println("in receiver\nsoket port = " + socket.getLocalPort());
 				System.out.println("data = " + data);
 				System.out.println("recData = " + recData);
 
-				if (recData.equals("hi")) {
+				if (rec[0].equals("hi")) {
 					// send data
 					sendBuf = data.getBytes();
 					System.out.println(recPacket.getPort());
@@ -84,7 +87,7 @@ public class BcastReceiver extends Thread {
 					socket.send(packet);
 
 					// add that peer to me
-					networkPeers.add(new PeerSocket(recPacket.getAddress().toString().substring(1), recPacket.getPort()));
+					networkPeers.add(new PeerSocket(recPacket.getAddress().toString().substring(1), Integer.parseInt(rec[1])));
 				}
 			} catch (SocketException e) {
 				continue;
