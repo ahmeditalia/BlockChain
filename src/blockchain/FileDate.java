@@ -64,6 +64,6 @@ public class FileDate {
 			br.close();
 			}catch (IOException e) {
 		}
-		return count-2;
+		return count;
 	}
 }

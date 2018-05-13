@@ -7,14 +7,17 @@ public class BlockChain {
 	public static int difficulty = 1;
 
 	public static Block addBlock() {
-		String data = FileDate.getData();
+		String data = "";
+		for(String s:Vote.Data) {
+			data+=s+"\n";
+		}
 		String previousHash = blockchain.size() == 0 ? "0" : blockchain.get(blockchain.size() - 1).getHash();
 		Block block = new Block(data, previousHash, difficulty);
 		if(!blockchain.contains(block))
 		{
 			blockchain.add(block);
 		}
-		FileDate.truncate();
+		Vote.Data.clear();
 		return block;
 	}
 

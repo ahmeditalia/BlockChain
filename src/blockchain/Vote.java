@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -29,7 +31,7 @@ public class Vote {
 	private int co = 0;
 	private int N = 3;
 	private Peer peer;
-
+	public static List<String>Data=new ArrayList<>(); 
 	/**
 	 * Launch the application.
 	 */
@@ -126,14 +128,15 @@ public class Vote {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				FileDate.writeVote(vote);
+				Data.add(vote);
+				//FileDate.writeVote(vote);
 				name.setText("");
 				radioButton_2.setSelected(true);
 
 				System.out.println("---------------------------------------------------------------");
 				System.out.println(FileDate.getData());
 				++co;
-				if (FileDate.NLines() == N) {
+				if (Data.size() == N) {
 					try {
 						peer.sendBlockAll(BlockChain.addBlock().toString());
 					} catch (IOException e) {
