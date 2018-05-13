@@ -63,9 +63,9 @@ public class BcastSender {
 				}
 			}
 		} catch (SocketTimeoutException e) {
-			if (++sendCounter < 2)
-				bCast(message);
-			else
+//			if (++sendCounter < 2)
+//				bCast(message);
+//			else
 				System.out.println("receiver timeout!!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

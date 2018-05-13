@@ -115,7 +115,7 @@ public class Peer {
 	public void sendLineAll(String data) throws IOException {
 		for (int i = 1; i < networkPeers.size(); i++) {
 			client.connect(networkPeers.get(i).getIP(),networkPeers.get(i).getPort());
-			client.send(data);
+			client.send('l'+data);
 		}
 		client.close();
 	}
@@ -123,7 +123,7 @@ public class Peer {
 	public void sendBlockAll(String block) throws IOException {
 		for (int i = 1; i < networkPeers.size(); i++) {
 			client.connect(networkPeers.get(i).getIP(),networkPeers.get(i).getPort());
-			client.send(block);
+			client.send('b'+block);
 		}
 		client.close();
 	}
