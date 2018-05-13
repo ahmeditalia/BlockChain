@@ -27,7 +27,6 @@ public class Vote {
 	private JFrame frame;
 	private JTextField name;
 	private int co = 0;
-	private BlockChain blockChain;
 	private int N = 3;
 	private Peer peer;
 
@@ -67,7 +66,6 @@ public class Vote {
 	 * Create the application.
 	 */
 	public Vote(int i) {
-		blockChain = new BlockChain();
 		initialize();
 		try {
 			peer=new Peer(i);
@@ -137,7 +135,7 @@ public class Vote {
 				++co;
 				if (FileDate.NLines() == N) {
 					try {
-						peer.sendBlockAll(blockChain.addBlock().toString());
+						peer.sendBlockAll(BlockChain.addBlock().toString());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -153,7 +151,7 @@ public class Vote {
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
-				for (Block block : blockChain.getBlockchain()) {
+				for (Block block : BlockChain.getBlockchain()) {
 					System.out.println("block : \n" + block.toString());
 				}
 			}
