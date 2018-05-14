@@ -4,14 +4,22 @@ import java.util.ArrayList;
 
 public class BlockChain {
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
-	public static int difficulty = 5;
+	public static int difficulty = 1;
 
-	public Block addBlock() {
-		String data = FileDate.getData();
+	public static Block addBlock() {
+		String data = "";
+		for(String s:Vote.Data) {
+			data+=s;
+		}
 		String previousHash = blockchain.size() == 0 ? "0" : blockchain.get(blockchain.size() - 1).getHash();
 		Block block = new Block(data, previousHash, difficulty);
-		blockchain.add(block);
-		FileDate.truncate();
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("mined block : \n"+block.toString());
+		if(!blockchain.contains(block))
+		{
+			blockchain.add(block);
+		}
+		Vote.Data.clear();
 		return block;
 	}
 

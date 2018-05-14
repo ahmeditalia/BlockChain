@@ -17,3 +17,4 @@ test-output/Default suite/Default test.html
 test-output/Default suite/Default test.xml
 *.xml
 *.html
+data.txt

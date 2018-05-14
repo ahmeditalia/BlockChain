@@ -33,7 +33,7 @@ public class Peer {
 	}
 
 	public Peer() throws UnknownHostException {
-		peerSocket = new PeerSocket("localhost", NetInfo.sendPort);
+		peerSocket = new PeerSocket(InetAddress.getLocalHost().getHostAddress(), NetInfo.sendPort);
 		networkPeers = new ArrayList<>();
 		networkPeers.add(peerSocket);
 		// multicastPublisher= new MulticastPublisher();
@@ -45,7 +45,7 @@ public class Peer {
 	}
 
 	public Peer(int port) throws UnknownHostException {
-		peerSocket = new PeerSocket("localhost", port);
+		peerSocket = new PeerSocket(InetAddress.getLocalHost().getHostAddress(), port);
 		networkPeers = new ArrayList<>();
 		networkPeers.add(peerSocket);
 		// multicastPublisher= new MulticastPublisher();
@@ -86,9 +86,9 @@ public class Peer {
 		// multicastReceiver.setNetworkPeers(networkPeers);
 		// multicastReceiver.start();
 
-		BcastSender bCastSender = new BcastSender(bCasstPort++, bCastSendPort);
+		BcastSender bCastSender = new BcastSender(NetInfo.sendPort, bCastSendPort);
 		bCastSender.setNetworkPeers(networkPeers);
-		bCastSender.bCast("hi");
+		bCastSender.bCast("hi"+"/"+peerSocket.getPort());
 		data = bCastSender.getData();
 		bCastSender.close();
 		bCastReceiver = new BcastReceiver(bCastRecPort);
@@ -114,7 +114,7 @@ public class Peer {
 	public void sendLineAll(String data) throws IOException {
 		for (int i = 1; i < networkPeers.size(); i++) {
 			client.connect(networkPeers.get(i).getIP(),networkPeers.get(i).getPort());
-			client.send(data);
+			client.send('l'+data);
 		}
 		client.close();
 	}
@@ -122,7 +122,7 @@ public class Peer {
 	public void sendBlockAll(String block) throws IOException {
 		for (int i = 1; i < networkPeers.size(); i++) {
 			client.connect(networkPeers.get(i).getIP(),networkPeers.get(i).getPort());
-			client.send(block);
+			client.send('b'+block);
 		}
 		client.close();
 	}

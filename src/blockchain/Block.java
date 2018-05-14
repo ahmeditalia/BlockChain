@@ -7,22 +7,19 @@ public class Block {
 	public String hash;
 	public String previousHash;
 	private String data;
-	private long timeStamp;
 	private int nonce;
 
-	public Block(String hash, String previousHash, String data, long timeStamp, int nonce) {
+	public Block(String hash, String previousHash, String data, int nonce) {
 		super();
 		this.hash = hash;
 		this.previousHash = previousHash;
 		this.data = data;
-		this.timeStamp = timeStamp;
 		this.nonce = nonce;
 	}
 
 	public Block(String data, String previousHash, int difficulty) {
 		this.data = data;
 		this.previousHash = previousHash;
-		this.timeStamp = new Date().getTime();
 		this.nonce = 0;
 		mineBlock(difficulty);
 	}
@@ -32,12 +29,11 @@ public class Block {
 		this.hash = strings[0];
 		this.previousHash = strings[1];
 		this.data = strings[2];
-		this.timeStamp = Long.parseLong(strings[3]);
-		this.nonce = Integer.parseInt(strings[4]);
+		this.nonce = Integer.parseInt(strings[3]);
 	}
 
 	public String calculateHash() {
-		String calculatedhash = applySha256(previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + data);
+		String calculatedhash = applySha256(previousHash + Integer.toString(nonce) + data);
 		return calculatedhash;
 	}
 
@@ -75,7 +71,7 @@ public class Block {
 
 	@Override
 	public String toString() {
-		String ret = hash + "," + previousHash + "," + data + "," + Long.toString(timeStamp) + ","
+		String ret = hash + "," + previousHash + "," + data  + ","
 				+ Integer.toString(nonce);
 		return ret;
 	}

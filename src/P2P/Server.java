@@ -13,6 +13,7 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
 import blockchain.Block;
 import blockchain.BlockChain;
 import blockchain.FileDate;
+import blockchain.Vote;
 
 public class Server extends Thread {
 	private ServerSocket serverSocket;
@@ -40,10 +41,27 @@ public class Server extends Thread {
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				data = in.readLine();
 				if (data.charAt(0) == 'l') {
-					FileDate.writeVote(data.substring(1));
+					Vote.Data.add(data.substring(1));
+					System.out.println("---------------------------------------------------------------");
+					System.out.println("recev Data :  "+data);
+
+					//FileDate.writeVote(data.substring(1));
+					if(Vote.Data.size()==3)
+					{
+						BlockChain.addBlock();
+					}
 				} else {
 					Block block = new Block(data.substring(1));
-					if (!BlockChain.blockchain.contains(block)) {
+					System.out.println("---------------------------------------------------------------");
+					System.out.println("recev block :  \n"+block.toString());
+					boolean flag=false;
+					for(Block block2:BlockChain.blockchain) {
+						if(block.getHash().equals(block2.getHash())) {
+							flag=true;
+							break;
+						}
+					}
+					if (!flag) {
 						BlockChain.blockchain.add(new Block(data.substring(1)));
 						System.out.println(BlockChain.isChainValid());
 					}

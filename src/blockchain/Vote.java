@@ -2,6 +2,7 @@ package blockchain;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.activation.FileDataSource;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,10 +14,14 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import P2P.NetInfo;
 import P2P.Peer;
 
 public class Vote {
@@ -24,10 +29,9 @@ public class Vote {
 	private JFrame frame;
 	private JTextField name;
 	private int co = 0;
-	private BlockChain blockChain;
 	private int N = 3;
 	private Peer peer;
-
+	public static List<String>Data=new ArrayList<>(); 
 	/**
 	 * Launch the application.
 	 */
@@ -36,18 +40,18 @@ public class Vote {
 			public void run() {
 				try {
 					Vote window1 = new Vote(8881);
-					window1.getPeer().setbCastSendPort(4444);//bCast to 4444
-					window1.getPeer().setbCastRecPort(4444); //lesten to 4444
+					window1.getPeer().setbCastSendPort(NetInfo.receivePort);//bCast to 4444
+					window1.getPeer().setbCastRecPort(NetInfo.receivePort); //lesten to 4444
 					window1.getPeer().start();
 					window1.frame.setVisible(true);
 					window1.frame.setTitle("peer_1");
-					Vote window2 = new Vote(8882);
+//					Vote window2 = new Vote(8882);
 
-					window2.getPeer().setbCastSendPort(4444);//bCast to 4444
-					window2.getPeer().setbCastRecPort(3333); //lesten to 3333
-					window2.getPeer().start();
-					window2.frame.setTitle("peer_2");
-					window2.frame.setVisible(true);
+//					window2.getPeer().setbCastSendPort(4444);//bCast to 4444
+//					window2.getPeer().setbCastRecPort(3333); //lesten to 3333
+//					window2.getPeer().start();
+//					window2.frame.setTitle("peer_2");
+//					window2.frame.setVisible(true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +68,6 @@ public class Vote {
 	 * Create the application.
 	 */
 	public Vote(int i) {
-		blockChain = new BlockChain();
 		initialize();
 		try {
 			peer=new Peer(i);
@@ -119,22 +122,23 @@ public class Vote {
 					JOptionPane.showMessageDialog(null, "Enter Your Name!!!");
 					return;
 				}
-				String vote = name.getText() + " voted to " + buttonGroup.getSelection().getActionCommand() + "\n";
+				String vote = name.getText() + " voted to " + buttonGroup.getSelection().getActionCommand();
 				try {
 					peer.sendLineAll(vote);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				FileDate.writeVote(vote);
+				Data.add(vote);
+				//FileDate.writeVote(vote);
 				name.setText("");
 				radioButton_2.setSelected(true);
 
 				System.out.println("---------------------------------------------------------------");
-				System.out.println(FileDate.getData());
+				System.out.println(vote);
 				++co;
-				if (co == N) {
+				if (Data.size() == N) {
 					try {
-						peer.sendBlockAll(blockChain.addBlock().toString());
+						peer.sendBlockAll(BlockChain.addBlock().toString());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -150,7 +154,7 @@ public class Vote {
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
-				for (Block block : blockChain.getBlockchain()) {
+				for (Block block : BlockChain.getBlockchain()) {
 					System.out.println("block : \n" + block.toString());
 				}
 			}
