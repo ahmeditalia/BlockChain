@@ -1,20 +1,14 @@
 package P2P_Testings;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import P2P.Client;
+import P2P.Peer;
+import P2P.Server;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import P2P.Client;
-import P2P.NetInfo;
-import P2P.Peer;
-import P2P.Server;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 public class PeerTest {
 	private Peer peer1, peer2;

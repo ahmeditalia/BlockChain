@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>blockchain</OriginalElement>
+  <nodes>
+    <node x="79.67500000000001" y="536.0">blockchain.Vote</node>
+    <node x="284.0" y="89.0">blockchain.FileDate</node>
+    <node x="0.0" y="0.0">blockchain.Block</node>
+    <node x="52.67500000000001" y="346.0">blockchain.BlockChain</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="blockchain.Vote" target="blockchain.BlockChain">
+      <point x="24.0" y="-125.5" />
+      <point x="199.675" y="511.0" />
+      <point x="237.175" y="511.0" />
+      <point x="61.5" y="70.0" />
+    </edge>
+    <edge source="blockchain.BlockChain" target="blockchain.Block">
+      <point x="49.19999999999999" y="-70.0" />
+      <point x="224.875" y="321.0" />
+      <point x="237.60000000000002" y="321.0" />
+      <point x="105.60000000000002" y="148.0" />
+    </edge>
+    <edge source="blockchain.Vote" target="blockchain.Block">
+      <point x="-72.0" y="-125.5" />
+      <point x="103.67500000000001" y="511.0" />
+      <point x="42.17500000000001" y="511.0" />
+      <point x="42.17500000000001" y="321.0" />
+      <point x="26.400000000000006" y="321.0" />
+      <point x="-105.6" y="148.0" />
+    </edge>
+    <edge source="blockchain.Vote" target="blockchain.FileDate">
+      <point x="72.0" y="-125.5" />
+      <point x="247.675" y="511.0" />
+      <point x="422.0" y="511.0" />
+      <point x="46.0" y="59.0" />
+    </edge>
+    <edge source="blockchain.BlockChain" target="blockchain.FileDate">
+      <point x="98.40000000000003" y="-70.0" />
+      <point x="274.07500000000005" y="321.0" />
+      <point x="330.0" y="321.0" />
+      <point x="-46.0" y="59.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="250.5" y="517.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

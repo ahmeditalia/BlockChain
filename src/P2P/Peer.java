@@ -1,7 +1,6 @@
 package P2P;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
@@ -17,18 +16,18 @@ public class Peer {
 	private int bCastRecPort;
 	private int bCastSendPort;
 	private static int bCasstPort=1111;
-	public int getbCastRecPort() {
+	/*public int getbCastRecPort() {
 		return bCastRecPort;
-	}
+	}*/
 
 	public void setbCastRecPort(int bCastRecPort) {
 		this.bCastRecPort = bCastRecPort;
 	}
 
-	public int getbCastSendPort() {
+	/*public int getbCastSendPort() {
 		return bCastSendPort;
 	}
-
+*/
 	public void setbCastSendPort(int bCastSendPort) {
 		this.bCastSendPort = bCastSendPort;
 	}
