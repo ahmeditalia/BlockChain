@@ -6,6 +6,14 @@ import java.util.Date;
 public class Block {
 	public String hash;
 	public String previousHash;
+	public String getPreviousHash() {
+		return previousHash;
+	}
+
+	public void setPreviousHash(String previousHash) {
+		this.previousHash = previousHash;
+	}
+
 	private String data;
 	private int nonce;
 
