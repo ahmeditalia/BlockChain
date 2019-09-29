@@ -56,14 +56,13 @@ public class Server extends Thread {
 					System.out.println("recev block :  \n"+block.toString());
 					boolean flag=false;
 					for(Block block2:BlockChain.blockchain) {
-						if(block.getHash().equals(block2.getHash())) {
+						if(block.getPreviousHash().equals(block2.getPreviousHash())) {
 							flag=true;
 							break;
 						}
 					}
 					if (!flag) {
 						BlockChain.blockchain.add(new Block(data.substring(1)));
-						System.out.println(BlockChain.isChainValid());
 					}
 				}
 				started= true;
